@@ -12,11 +12,11 @@ Pip install -r requirements.txt
 
 You will need to download Stackoverflow’s 2017,2018, 2019, 2020, and 2021 Annual Developer Survey. You can find the data to download here or you can download directly from this link down below.
 Stackoverflow 2017 – 2021 Annual Developer Survey:
-1. ``` https://info.stackoverflowsolutions.com/rs/719-EMH-566/images/stack-overflow-developer-survey-2017.zip ```
-2. ``` https://info.stackoverflowsolutions.com/rs/719-EMH-566/images/stack-overflow-developer-survey-2018.zip ```
-3. ``` https://info.stackoverflowsolutions.com/rs/719-EMH-566/images/stack-overflow-developer-survey-2019.zip ```
-4. ``` https://info.stackoverflowsolutions.com/rs/719-EMH-566/images/stack-overflow-developer-survey-2020.zip ```
-5. ``` https://info.stackoverflowsolutions.com/rs/719-EMH-566/images/stack-overflow-developer-survey-2021.zip ```
+``` https://info.stackoverflowsolutions.com/rs/719-EMH-566/images/stack-overflow-developer-survey-2017.zip ```
+``` https://info.stackoverflowsolutions.com/rs/719-EMH-566/images/stack-overflow-developer-survey-2018.zip ```
+``` https://info.stackoverflowsolutions.com/rs/719-EMH-566/images/stack-overflow-developer-survey-2019.zip ```
+``` https://info.stackoverflowsolutions.com/rs/719-EMH-566/images/stack-overflow-developer-survey-2020.zip ```
+``` https://info.stackoverflowsolutions.com/rs/719-EMH-566/images/stack-overflow-developer-survey-2021.zip ```
 
 
 # Project Motivation
@@ -42,7 +42,7 @@ Stackoverflow’s 2017-2021 Annual Developer Survey data.
 
 # Results
 
-The main findings of the code can be found at the post available 
+The main findings of the code can be found at the post available [here](https://github.com/AhmadGilangArinanda/Data/blob/main/DataScience_BlogPost/Data%20Sciences%20Blog%20Post.ipynb)
 
 # Licensing, Authors, Acknowledgements
 
