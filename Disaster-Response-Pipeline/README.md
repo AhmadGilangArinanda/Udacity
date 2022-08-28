@@ -10,6 +10,7 @@
 3. Getting Started
     - Dependencies
     - Installing
+    - Instructions
 4. File Description
 
 
@@ -74,6 +75,14 @@ This project requires Python 3.x and the following Python libraries installed:
 - Re
 - Pickle
 You will also need to have software installed to run and execute an iPython Notebook
+
+3.3 Instructions
+Run the following commands in the project's root directory to set up your database and model.
+
+- To run ETL pipeline that cleans data and stores in database python data/process_data.py data/messages.csv data/categories.csv data/DisasterResponse.db
+- To run ML pipeline that trains classifier and saves python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl
+- Run the following command in the app's directory to run your web app. python run.py
+- Go to http://0.0.0.0:3001/
 
 ## 4. File Description
 
