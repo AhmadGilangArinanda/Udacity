@@ -98,7 +98,7 @@ Run the following commands in the project's root directory to set up your databa
                 |-- message.csv
                 |-- process_data.py
           |-- models
-                |-- classifier.pkl
+                |-- classifier.rar (classifier.pkl)
                 |-- train_classifier.py
           |-- image     
           |-- README
