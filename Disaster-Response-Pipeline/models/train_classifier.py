@@ -117,8 +117,8 @@ def save_model_as_pickle(pipeline, pickle_filepath):
 def main():
     if len(sys.argv) == 3:
         database_filepath, pickle_filepath = sys.argv[1:]
-        print('Loading data from {} ...'.format('data/DisasterResponse.db'))
-        X, y, category_names = load_data('sqlite:///D:\\New\\data\\DisasterResponse.db')
+        print('Loading data from {} ...'.format(database_filepath))
+        X, y, category_names = load_data(database_filepath)
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
         
         print('Building the pipeline ...')
@@ -131,7 +131,7 @@ def main():
         evaluate_model(pipeline, X_test, y_test, category_names)
 
         print('Saving pipeline to {} ...'.format('models/classifier.pkl'))
-        save_model_as_pickle(pipeline, 'classifier.pkl')
+        save_model_as_pickle(pipeline, pickle_filepath)
 
         print('Trained model saved!')
 
