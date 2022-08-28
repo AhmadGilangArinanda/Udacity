@@ -89,16 +89,16 @@ Run the following commands in the project's root directory to set up your databa
          disaster-response-pipeline
           |-- app
                 |-- templates
-                        |-- go.html
-                        |-- master.html
-                |-- run.py
+                        |-- go.html # main page of web app
+                        |-- master.html # classification result page of web app
+                |-- run.py # Flask file that runs app
           |-- data                
-                |-- DisasterResponse.db
-                |-- categories.csv
-                |-- message.csv
+                |-- DisasterResponse.db # database to save clean data to
+                |-- categories.csv # data to process 
+                |-- message.csv # data to process
                 |-- process_data.py
           |-- models
-                |-- classifier.rar (classifier.pkl)
+                |-- classifier.rar (classifier.pkl) # saved model 
                 |-- train_classifier.py
           |-- image     
           |-- README
