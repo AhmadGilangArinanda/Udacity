@@ -130,7 +130,7 @@ def main():
         print('Evaluating model...')
         evaluate_model(pipeline, X_test, y_test, category_names)
 
-        print('Saving pipeline to {} ...'.format('models/classifier.pkl'))
+        print('Saving pipeline to {} ...'.format(pickle_filepath))
         save_model_as_pickle(pipeline, pickle_filepath)
 
         print('Trained model saved!')
