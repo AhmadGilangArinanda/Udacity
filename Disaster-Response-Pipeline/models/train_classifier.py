@@ -30,6 +30,16 @@ from sklearn.base import BaseEstimator,TransformerMixin
 
 
 def load_data(database_filepath):
+    """
+    Load Data from the Database Function
+    
+    Arguments:
+        database_filepath -> Path to SQLite destination database (e.g. disaster_response_db.db)
+    Output:
+        X -> a dataframe containing features
+        Y -> a dataframe containing labels
+        category_names -> List of categories name
+    """
     # Load data
     engine = create_engine(database_filepath)
     df = pd.read_sql_table('DisasterResponse.db', engine)
@@ -80,6 +90,13 @@ def tokenize(text,url_place_holder_string="urlplaceholder"):
 
 
 def build_model():
+     """
+    Build Pipeline function
+    
+    Output:
+        A Scikit ML Pipeline that process text messages and apply a classifier.
+        
+    """
     pipeline = Pipeline([
     ('vect', CountVectorizer(tokenizer=tokenize)),
     ('tfidf', TfidfTransformer()),
@@ -97,6 +114,17 @@ def build_model():
     return cv
 
 def evaluate_model(model, X_test, y_test, category_names):
+     """
+    Evaluate Model function
+    
+    This function applies a ML pipeline to a test set and prints out classification report
+    
+    Arguments:
+        pipeline -> A valid scikit ML Pipeline
+        X_test -> Test features
+        y_test -> Test labels
+        category_names -> target names
+    """
     y_pred = model.predict(X_test)
     class_report = classification_report(y_test, y_pred, target_names=category_names)
     print(class_report)
@@ -115,6 +143,16 @@ def save_model_as_pickle(pipeline, pickle_filepath):
     pickle.dump(pipeline, open(pickle_filepath, 'wb'))
 
 def main():
+     """
+    Train Classifier Main function
+    
+    This function applies the Machine Learning Pipeline:
+        1) Extract data from SQLite db
+        2) Train ML model on training set
+        3) Estimate model performance on test set
+        4) Save trained model as Pickle
+    
+    """
     if len(sys.argv) == 3:
         database_filepath, pickle_filepath = sys.argv[1:]
         print('Loading data from {} ...'.format(database_filepath))
