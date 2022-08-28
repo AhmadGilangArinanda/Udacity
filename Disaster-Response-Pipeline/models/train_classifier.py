@@ -38,7 +38,7 @@ def load_data(database_filepath):
     Output:
         X -> a dataframe containing features
         Y -> a dataframe containing labels
-        category_names -> List of categories name
+        category_names -> List of categories names
     """
     # Load data
     engine = create_engine(database_filepath)
