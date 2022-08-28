@@ -2,19 +2,19 @@
 
 ## Table of Contents
 
-1. Description
-2. Project Components
-    - ETL Pipeline
-    - ML Pipeline
-    - Flask Web App
-3. Getting Started
-    - Dependencies
-    - Installing
-    - Instructions
-4. File Description
+1. [Description](#description)
+2. [Project Components](#project_components)
+    - [ETL Pipeline](#etl)
+    - [ML Pipeline](#ml_pipeline)
+    - [Flask Web App](#flask)
+3. [Getting Started](#getting_started)
+    - [Dependencies](#dependencies)
+    - [Installing](#installing)
+    - [Instructions](#instructions)
+4. [File Description](#file)
 
 
-
+<a name="description"></a>
 ## 1. Description
 This Project is part of Data Science Nanodegree Program by Udacity in collaboration with Figure Eight. The dataset contains pre-labelled tweet and messages from real-life disaster events. The project aim is to build a Natural Language Processing (NLP) model to categorize messages on a real time basis.
 
@@ -24,9 +24,11 @@ Processing data, building an ETL pipeline to extract data from source, clean the
 Build a machine learning pipeline to train the which can classify text message in various categories
 Run a web app which can show model results in real time
 
+<a name="project_components"></a>
 ## 2. Project Components
 There are three components of this project:
 
+<a name="etl"></a>
 2.1. ETL Pipeline
 File data/process_data.py contains data cleaning pipeline that:
 
@@ -35,6 +37,7 @@ File data/process_data.py contains data cleaning pipeline that:
 - Cleans the data
 - Stores it in a SQLite database
 
+<a name="ml_pipeline"></a>
 2.2. ML Pipeline
 File models/train_classifier.py contains machine learning pipeline that:
 
@@ -45,12 +48,15 @@ File models/train_classifier.py contains machine learning pipeline that:
 - Outputs result on the test set
 - Exports the final model as a pickle file
 
+<a name="flask"></a>
 2.3. Flask Web App
 
 - Running this command from app directory will start the web app where users can enter their query. For example massage : "There's nothing to eat and water, we starving and thirsty"
 
+<a name="getting_started"></a>
 ## 3. Getting Started
 
+<a name="dependencies"></a>
 3.1 Dependencies
 - Python 3.
 - Machine Learning Libraries: NumPy, SciPy, Pandas, Sciki-Learn
@@ -59,6 +65,7 @@ File models/train_classifier.py contains machine learning pipeline that:
 - Model Loading and Saving Library: Pickle
 - Web App and Data Visualization: Flask, Plotly
 
+<a name="installing"></a>
 3.2 Installing
 This project requires Python 3.x and the following Python libraries installed:
 
@@ -76,6 +83,7 @@ This project requires Python 3.x and the following Python libraries installed:
 - Pickle
 You will also need to have software installed to run and execute an iPython Notebook
 
+<a name="instructions"></a>
 3.3 Instructions
 Run the following commands in the project's root directory to set up your database and model.
 
@@ -84,6 +92,7 @@ Run the following commands in the project's root directory to set up your databa
 - Run the following command in the app's directory to run your web app. python run.py
 - Go to http://0.0.0.0:3001/
 
+<a name="file"></a>
 ## 4. File Description
 
          disaster-response-pipeline
