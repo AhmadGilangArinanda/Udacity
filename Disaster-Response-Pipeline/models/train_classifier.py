@@ -37,7 +37,7 @@ def load_data(database_filepath):
 	   category_names -> List of categories names
 	"""
     # Load data
-    engine = create_engine(database_filepath)
+    engine = create_engine('sqlite:///'+database_filepath)
     df = pd.read_sql_table('DisasterResponse.db', engine)
 
     # Remove child alone as it has all zeros only
