@@ -6,14 +6,15 @@ from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
     """
-    load data massages and categories
+    load_data
+    load data from csv files and merge to single pandas dataframe
 
-    arguments: 
-    massages_filepath -> Path to the CSV file containing massages
-    categories_filepath -> Path to the CSV file containing categories
-
-    output:
-    df -> Combined data containing messages and categories 
+    Input: 
+    massages_filepath -> filepath to massages csv file
+    categories_filepath -> filepath to categories csv file
+    
+    Returns:
+    df -> dataframe merging messages and categories 
     """
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
@@ -22,12 +23,13 @@ def load_data(messages_filepath, categories_filepath):
 
 def clean_data(df):
     """
+    clean_data
     clean df that containing massages and categories
 
-    arguments:
+    Input:
     df -> Combined data containing massages and categories
 
-    output:
+    Returns:
     df -> Combined data containing masssages and categories cleaned up
     """
     # split categories into separate category columns
@@ -43,7 +45,8 @@ def clean_data(df):
     # Convert category values to just numbers 0 or 1
     for column in categories:
          categories[column] = categories[column].str[-1] # set each value to be the last character of the string
-         categories[column] = pd.to_numeric(categories[column]) # convert column from string to numeric
+         categories[column] = categories[column].astype(int) # convert column from string to numeric
+         categories.related.replace(2,1,inplace=True) # "related" column has value 0,1,2 and we need only 0 & 1 hence replacing 2 with 1
     
     # Replace categories column in df with new category columns
     df.drop('categories' , axis = 1 , inplace = True) # drop the original categories column from `df`
@@ -54,11 +57,14 @@ def clean_data(df):
 
 def save_data(df, database_filename):
     """
+    save_data
     save data to SQLite database function
     
-    Arguments:
-        df -> Combined data containing messages and categories with categories cleaned up
-        database_filename -> Path to SQLite destination database
+    Input:
+    df -> Combined data containing messages and categories with categories cleaned up
+        
+    Returns:
+    database_filename -> Path to SQLite destination database
     """ 
     engine = create_engine('sqlite:///' + database_filename)
     df.to_sql('DisasterResponse', engine, index=False, if_exists='replace')
