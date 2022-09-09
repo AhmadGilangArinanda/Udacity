@@ -2,10 +2,14 @@
 import nltk
 nltk.download('punkt')
 nltk.download('wordnet')
+nltk.download('stopwords')
 nltk.download('averaged_perceptron_tagger')
+
+from nltk.corpus import stopwords
 
 # import libraries
 import pandas as pd
+import numpy as np
 pd.set_option('display.max_columns', 500)
 
 import sys
@@ -17,8 +21,8 @@ import pickle
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
-
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.svm import LinearSVC
 
 from sklearn.model_selection import GridSearchCV
 from sklearn.feature_extraction.text import TfidfTransformer, CountVectorizer
@@ -27,14 +31,16 @@ from sklearn.multioutput import MultiOutputClassifier
 
 def load_data(database_filepath):
     """
+    load_data
 	Load Data from the Database Function
 	
-	Arguments:
-	   database_filepath -> Path to SQLite destination database (e.g. disaster_response_db.db)
-	Output:
-	   X -> a dataframe containing features
-	   Y -> a dataframe containing labels
-	   category_names -> List of categories names
+	Input:
+	database_filepath -> Path to SQLite destination database (e.g. disaster_response_db.db)
+	
+    Retuns:
+	X -> a dataframe containing features
+	Y -> a dataframe containing labels
+	category_names -> List of categories names
 	"""
     # Load data
     engine = create_engine('sqlite:///'+database_filepath)
@@ -56,12 +62,14 @@ def load_data(database_filepath):
 
 def tokenize(text,url_place_holder_string="urlplaceholder"):
     """
+    tokenize
     Tokenize the text function
     
-    Arguments:
-        text -> Text message which needs to be tokenized
-    Output:
-        clean_tokens -> List of tokens extracted from the provided text
+    Input:
+    text -> Text message which needs to be tokenized
+    
+    Returns:
+    clean_tokens -> List of tokens extracted from the provided text
     """ 
     # Replace all urls with a urlplaceholder string
     url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
@@ -76,6 +84,10 @@ def tokenize(text,url_place_holder_string="urlplaceholder"):
     # Extract the word tokens from the provided text
     tokens = nltk.word_tokenize(text)
     
+    # Remove stop words
+    stop_words = stopwords.words("english")
+    tokens = [tok for tok in tokens if tok not in stop_words]
+    
     #Lemmanitizer to remove inflectional and derivationally related forms of a word
     lemmatizer = nltk.WordNetLemmatizer()
 
@@ -86,53 +98,62 @@ def tokenize(text,url_place_holder_string="urlplaceholder"):
 
 def build_model():
     """
-	Build Pipeline function
+    build_model
+	build machine learning pipeline
+    
+    Input:
+    pipeline -> build Pipeline function
 	
-	Output:
-	   A Scikit ML Pipeline that process text messages and apply a classifier.
+	Returns:
+	A Scikit ML Pipeline that process text messages and apply a classifier.
 	   
 	"""
     pipeline = Pipeline([
     ('vect', CountVectorizer(tokenizer=tokenize)),
     ('tfidf', TfidfTransformer()),
-    ('clf', MultiOutputClassifier(RandomForestClassifier()))
-    ])
+    ('clf', MultiOutputClassifier(OneVsRestClassifier(LinearSVC())))])
 
 
     #model parameters for GridSearchCV
-    parameters = { 
-                    'clf__estimator__n_estimators': [20],
-                    'clf__estimator__min_samples_split': [2]
-              }
-    cv = GridSearchCV (pipeline, param_grid= parameters, verbose =7 )
+    parameters = {'vect__ngram_range': ((1, 1), (1, 2)),
+                  'vect__max_df': (0.75, 1.0)
+                  }
+
+    cv = GridSearchCV(estimator=pipeline,
+            param_grid=parameters,
+            verbose=3,
+            cv=3)
 
     return cv
 
 def evaluate_model(model, X_test, y_test, category_names):
     """
+    evaluate_model
 	Evaluate Model function
 	
 	This function applies a ML pipeline to a test set and prints out classification report
 	
-	Arguments:
+	Input:
 	   pipeline -> A valid scikit ML Pipeline
 	   X_test -> Test features
 	   y_test -> Test labels
 	   category_names -> target names
-	"""
-    y_pred = model.predict(X_test)
-    class_report = classification_report(y_test, y_pred, target_names=category_names)
+	"""    
+    y_pred = model.predict(X_test) # predict
+    class_report = classification_report(y_test, y_pred, target_names=category_names) # print classification report
     print(class_report)
+    print('Accuracy: {}'.format(np.mean(y_test.values == y_pred))) # print accuracy score
 
 def save_model_as_pickle(pipeline, pickle_filepath):
     """
+    save_model_as_pickle
     Save Pipeline function
     
     This function saves trained model as Pickle file, to be loaded later.
     
-    Arguments:
-        pipeline -> GridSearchCV or Scikit Pipelin object
-        pickle_filepath -> destination path to save .pkl file
+    Input:
+    pipeline -> GridSearchCV or Scikit Pipelin object
+    pickle_filepath -> destination path to save .pkl file
     
     """
     pickle.dump(pipeline, open(pickle_filepath, 'wb'))
