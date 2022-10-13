@@ -44,3 +44,6 @@ There are a few things I did to make machine learning models such as remove data
 In the section on making machine learning models, by comparing several models such as Decision Tree Classifier, Random Forest Classifier and KNeighbors Classifier. The results of these predictions Decision Tree Classifier has better accuracy and F1 scores than Random Forest Classifier and KNeighbors Classifier. 
 Decision Tree Classifier has training and testing accuracy: 0.622 and 0.623 and training and testing F1 score: 0.593 and 0.597.
 However, this model does not yet have an optimal accuracy and F1 score. We should do improvement or try another model that has accuracy and the F1 score is higher than this model.
+
+### Blog Post
+You can find my blog post: https://medium.com/@ahmadgilanga/the-starbucks-capstone-project-for-udacitys-data-scientist-nanodegree-program-ed3bc4f69b2a
