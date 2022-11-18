@@ -51,7 +51,7 @@ File models/train_classifier.py contains machine learning pipeline that:
 <a name="flask"></a>
 2.3. Flask Web App
 
-- Running this command from app directory will start the web app where users can enter their query. For example massage : "There's nothing to eat and water, we starving and thirsty"
+- Running this command from app directory will start the web app where users can enter their query. For example message : "There's nothing to eat and water, we starving and thirsty"
 
 <a name="getting_started"></a>
 ## 3. Getting Started
